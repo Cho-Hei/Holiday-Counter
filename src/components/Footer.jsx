@@ -1,32 +1,32 @@
 const Footer = ({ handlePrevHoliday, handleNextHoliday, currentIndex }) => {
   return (
-    <section className='p-2 bg-blue-500 rounded-t-lg text-white'>
-      <div className='flex p-2 justify-between font-bold text-white items-center'>
+    <section className='p-2 bg-primary rounded-t-lg text-white'>
+      <div className='flex p-2 justify-around font-semibold text-white items-center'>
         <div className='flex justify-start'>
-          {currentIndex != 0 && (
-            <button
-              onClick={handlePrevHoliday}
-              className='hover:cursor-pointer hover:scale-110'>
-              <div className='flex items-center'>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  className='h-8 w-8'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  stroke='currentColor'>
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth={2}
-                    d='M15 19l-7-7 7-7'
-                  />
-                </svg>
-                <p>Previous</p>
-              </div>
-            </button>
-          )}
+          <button
+            onClick={handlePrevHoliday}
+            className={`hover:cursor-pointer hover:scale-110 ${
+              currentIndex != 0 ? `visible` : `invisible`
+            }`}>
+            <div className='flex items-center'>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                className='h-8 w-8'
+                fill='none'
+                viewBox='0 0 24 24'
+                stroke='currentColor'>
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth={2}
+                  d='M15 19l-7-7 7-7'
+                />
+              </svg>
+              <p>Previous</p>
+            </div>
+          </button>
         </div>
-        <div>
+        <div className='text-center'>
           <p className='text-md'>
             Made with{" "}
             <svg

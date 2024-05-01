@@ -36,7 +36,7 @@ const Header = () => {
   };
 
   return (
-    <header className='p-4 bg-blue-500 rounded-b-lg text-white'>
+    <header className='p-4 bg-primary rounded-b-lg text-white'>
       <div className='flex justify-between items-center'>
         <div className='flex flex-row text-center items-center'>
           <Image
@@ -49,18 +49,26 @@ const Header = () => {
           <h2 className='text-3xl'>Holiday Countdown</h2>
         </div>
         <div className='dropdown dropdown-end'>
-          <div tabIndex={0} role='button' className='btn m-1 text-white'>
-            {location ? location : country}
+          <div
+            tabIndex={0}
+            role='button'
+            className='btn m-1 hover:bg-accent-focus bg-accent border-accent text-white'>
+            Country: {location ? location : country}
           </div>
           <ul
             tabIndex={0}
-            className='dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 h-96 flex-nowrap overflow-y-scroll'>
+            className='dropdown-content z-[1] menu p-2 shadow bg-accent rounded-box w-52 h-96 flex-nowrap overflow-y-scroll'>
             {COUNTRIES.map((country) => {
               return (
                 <li key={country.code}>
-                  <a onClick={() => changelocation(country.code)}>
-                    {country.name}
-                  </a>
+                  <div
+                    role='button'
+                    tabIndex='0'
+                    className='btn bg-accent border-accent hover:bg-accent hover:border-accent'>
+                    <a onClick={() => changelocation(country.code)}>
+                      {country.name}
+                    </a>
+                  </div>
                 </li>
               );
             })}

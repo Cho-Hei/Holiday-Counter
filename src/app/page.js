@@ -11,7 +11,7 @@ export default function Home() {
   const random = Math.floor(Math.random() * colors.length);
   return (
     <>
-      <div className={`min-h-svh min-w-full flex flex-col bg-[#4a795c]`}>
+      <div className={`min-h-svh min-w-full flex flex-col bg-secondary`}>
         <Header />
         <Hero />
       </div>

@@ -26,15 +26,15 @@ const Holiday = ({ holiday, index }) => {
   };
 
   return (
-    <section className='text-4xl flex flex-grow items-center justify-center'>
-      <div className='flex flex-col space-y-8 justify-center items-center'>
-        <h2 className='text-center text-white'>
+    <section className='flex flex-grow items-center justify-center'>
+      <div className='flex flex-col space-y-8 justify-center items-center text-black font-semibold'>
+        <h2 className='text-center lg:text-4xl text-lg'>
           {isToday() ? `Today is` : `Next Holiday`}
         </h2>
-        <h1 className='text-center text-6xl text-white'>
+        <h1 className='text-center lg:text-6xl text-lg'>
           {holiday[index]?.name}
         </h1>
-        <h3 className='text-center text-white'>{dateofHoliday()}</h3>
+        <h3 className='text-center lg:text-4xl text-lg'>{dateofHoliday()}</h3>
         {!isToday() && <Timer time={{ days, hours, minutes, seconds }} />}
       </div>
     </section>
