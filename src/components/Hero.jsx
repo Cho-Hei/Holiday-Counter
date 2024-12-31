@@ -13,7 +13,13 @@ const Hero = () => {
 
     useEffect(() => {
         if (data) {
+            // Check if the country is the same as the previous data
             if (holidays.length === 0 || holidays[0].country.id === data[0].country.id) {
+                // If the last holiday has already passed, fetch the next year data
+                if (holidays.length === 0) {
+                    handleNextData();
+                }
+                console.log(holidays);
                 const filteredHolidays = filterHolidays(data);
                 appendHolidays(filteredHolidays);
             } else {
@@ -38,6 +44,7 @@ const Hero = () => {
         return data.filter((holiday) => {
             const now = new Date();
             const holidayDate = new Date(holiday.date.iso);
+
             return holidayDate >= now && holiday.type.includes("National holiday");
         });
     };
@@ -102,24 +109,27 @@ const Hero = () => {
     // }, [data, currentIndex, holidays, isVisible]);
 
     // if (isError) return <div>Failed to load</div>;
-    if (!data) return;
-    <div className='flex flex-auto justify-center'>
-        <span className='loading loading-dots loading-lg'></span>;
-    </div>;
+    if (!data)
+        return (
+            <div className='flex flex-auto justify-center'>
+                <span className='loading loading-dots loading-lg'></span>
+            </div>
+        );
 
     return (
         <section className='flex flex-grow flex-col'>
             <div
-                className={`flex flex-grow ${
+                className={`flex flex-grow flex-col ${
                     isVisible ? `${styles.fade_in}` : `${styles.fade_out}`
                 } `}>
                 <Holiday holiday={holidays} index={currentIndex} />
+
+                <Footer
+                    handlePrevHoliday={prevHoliday}
+                    handleNextHoliday={nextHoliday}
+                    currentIndex={currentIndex}
+                />
             </div>
-            <Footer
-                handlePrevHoliday={prevHoliday}
-                handleNextHoliday={nextHoliday}
-                currentIndex={currentIndex}
-            />
         </section>
     );
 };
