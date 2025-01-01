@@ -23,7 +23,8 @@ const Header = () => {
         if (!localStoragecountry) {
             getClientDetails();
         } else {
-            setCountry({ country: location.country, ...country });
+            console.log("localStoragecountry", localStoragecountry);
+            setCountry({ country: location.SelectedCountry, timezone:location.timezone });
         }
     }, []);
 
