@@ -23,7 +23,7 @@ const Header = () => {
         if (!localStoragecountry) {
             getClientDetails();
         } else {
-            setCountry({ country: location.SelectedCountry, ...country });
+            setCountry({ country: location.country, ...country });
         }
     }, []);
 
