@@ -12,7 +12,7 @@ const Header = () => {
     useEffect(() => {
         const getClientDetails = async () => {
             const response = await fetch("/api/ipapi").then((res) => res.json());
-            const SelectedCountry = response.country_code;
+            const SelectedCountry = response.countryCode;
             const SelectedTime = response.timezone;
 
             setStorageCountry({ country: SelectedCountry, timezone: SelectedTime });
