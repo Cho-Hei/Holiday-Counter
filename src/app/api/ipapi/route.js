@@ -9,8 +9,11 @@ export async function GET(request) {
     revalidatePath(request.url);
 
     // Country Fetching (only for Vercel)
-    const clientcountry = request.headers.get("X-Vercel-IP-Country");
+    const clientcountry = request.headers.get("x-vercel-ip-country");
     const timezone = request.headers.get("x-vercel-ip-timezone");
+
+    console.log("country", clientcountry)
+    console.log("timezone", timezone)
 
     if (clientcountry) {
         return NextResponse.json(
