@@ -6,23 +6,24 @@ import Image from "next/image";
 import icon from "../../public/images/icon.jpg";
 
 const Header = () => {
-    const [country, setCountry] = useState();
+    const [country, setCountry] = useState({ country: "", timezone: "" });
     const [location, setLocation] = useLocalStorage();
 
     useEffect(() => {
         const getClientDetails = async () => {
             const response = await fetch("/api/ipapi").then((res) => res.json());
-            const clientCountry = response.country_code;
+            const SelectedCountry = response.country_code;
+            const SelectedTime = response.timezone;
 
-            setStorageCountry(clientCountry);
-            setCountry(clientCountry);
+            setStorageCountry({ country: SelectedCountry, timezone: SelectedTime });
+            setCountry({ country: SelectedCountry, timezone: SelectedTime });
         };
 
         const localStoragecountry = localStorage.getItem("location");
         if (!localStoragecountry) {
             getClientDetails();
         } else {
-            setCountry(location);
+            setCountry({ country: location.SelectedCountry, ...country });
         }
     }, []);
 
@@ -31,8 +32,8 @@ const Header = () => {
     };
 
     const changelocation = (newcountry) => {
-        setStorageCountry(newcountry);
-        setCountry(newcountry);
+        setStorageCountry({ country: newcountry.code, timezone: newcountry.timezones[0] });
+        setCountry({ country: newcountry.code, timezone: newcountry.timezones[0] });
     };
 
     return (
@@ -55,7 +56,7 @@ const Header = () => {
                         tabIndex={0}
                         role='button'
                         className='btn m-1 hover:bg-accent-focus bg-accent border-accent text-white'>
-                        Country: {location ? location : country}
+                        Country: {location?.country ? location?.country : country.country}
                     </div>
                     <ul
                         tabIndex={0}
@@ -67,7 +68,7 @@ const Header = () => {
                                         role='button'
                                         tabIndex='0'
                                         className='btn bg-accent border-accent hover:bg-accent hover:border-accent'>
-                                        <a onClick={() => changelocation(country.code)}>
+                                        <a onClick={() => changelocation(country)}>
                                             {country.name}
                                         </a>
                                     </div>

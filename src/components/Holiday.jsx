@@ -4,8 +4,9 @@ import Timer from "./Timer";
 
 const Holiday = ({ holiday, index }) => {
     const holidayDateISO = new Date(holiday[index]?.date.iso);
-    const today = new Date();
-    console.log(holidayDateISO);
+    const country = JSON.parse(localStorage.getItem("location"));
+    const countrytime = new Date().toLocaleString("en-US", { timeZone: country.timezone });
+    const today = new Date(countrytime);
     const { days, hours, minutes, seconds } = useCountdown(
         today,
         holidayDateISO.setHours(0, 0, 0, 0)

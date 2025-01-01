@@ -1,6 +1,11 @@
 import { useSyncExternalStore } from "react";
 
 const useLocalStorage = () => {
+    const setValue = (country) => {
+        localStorage.setItem("location", JSON.stringify(country));
+        window.dispatchEvent(new StorageEvent("update-country"));
+    };
+
     const item = useSyncExternalStore(subscribe, getSnapshot, () => setValue);
 
     // const value = typeof item === "string" ? JSON.parse(item) : null;
@@ -11,11 +16,6 @@ const useLocalStorage = () => {
         } finally {
         }
     }
-
-    const setValue = (country) => {
-        localStorage.setItem("location", JSON.stringify(country));
-        window.dispatchEvent(new StorageEvent("update-country"));
-    };
 
     return [value, setValue];
 };

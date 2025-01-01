@@ -13,12 +13,14 @@ const Hero = () => {
 
     useEffect(() => {
         if (data) {
+            console.log(data);
+            if (data.length === 0) {
+                // If the last holiday has already passed, fetch the next year data
+                handleNextData();
+                console.log("Next year data fetched");
+            }
             // Check if the country is the same as the previous data
             if (holidays.length === 0 || holidays[0].country.id === data[0].country.id) {
-                // If the last holiday has already passed, fetch the next year data
-                if (holidays.length === 0) {
-                    handleNextData();
-                }
                 console.log(holidays);
                 const filteredHolidays = filterHolidays(data);
                 appendHolidays(filteredHolidays);
@@ -42,10 +44,15 @@ const Hero = () => {
 
     const filterHolidays = (data) => {
         return data.filter((holiday) => {
-            const now = new Date();
+            const country = JSON.parse(localStorage.getItem("location"));
+            const countrytime = new Date().toLocaleString("en-US", { timeZone: country.timezone });
+            const now = new Date(countrytime);
             const holidayDate = new Date(holiday.date.iso);
 
-            return holidayDate >= now && holiday.type.includes("National holiday");
+            return (
+                (holidayDate >= now || holidayDate.setTime(0) >= now.setTime(0)) &&
+                holiday.type.includes("National holiday")
+            );
         });
     };
 
