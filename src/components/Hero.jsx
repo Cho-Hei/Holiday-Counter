@@ -47,11 +47,11 @@ const Hero = () => {
             const country = JSON.parse(localStorage.getItem("location"));
             const countrytime = new Date().toLocaleString("en-US", { timeZone: country.timezone });
             const now = new Date(countrytime);
+
             const holidayDate = new Date(holiday.date.iso);
 
             return (
-                (holidayDate >= now || holidayDate.setTime(0) >= now.setTime(0)) &&
-                holiday.type.includes("National holiday")
+                holidayDate.setHours(0, 0, 0, 0) >= now && holiday.type.includes("National holiday")
             );
         });
     };
